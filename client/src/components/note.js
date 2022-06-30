@@ -38,7 +38,7 @@ const Note = ({ id, title, body, date }) => {
               width="25"
               height="25"
               fill="currentColor"
-              class="bi bi-file-earmark-x"
+              className="bi bi-file-earmark-x"
               viewBox="0 0 16 16"
             >
               <path d="M6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146z" />
