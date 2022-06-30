@@ -24,16 +24,19 @@ const Note = ({ id, title, body, date }) => {
     >
       <div>
         <div className="card-header d-flex justify-content-start">
-          <div className="col-10">
+          <div className="col-14">
             <h4>{title}</h4>
           </div>
 
-          <div className="col" onClick={() => handleDelete(id)}>
+          <div
+            className="col d-flex justify-content-end"
+            onClick={() => handleDelete(id)}
+          >
             <svg
               type="submit"
               xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
+              width="25"
+              height="25"
               fill="currentColor"
               class="bi bi-file-earmark-x"
               viewBox="0 0 16 16"
@@ -47,9 +50,9 @@ const Note = ({ id, title, body, date }) => {
       <div className="card-body ">
         <p className="card-text note-body">{body}</p>
       </div>
-      <footer className="col-10" align="center">
-        Created on : {date.slice(0, 10)}
-      </footer>
+      <div className="b card-footer">
+        <small className="text-muted">Created on : {date.slice(0, 10)}</small>
+      </div>
     </div>
   );
 };

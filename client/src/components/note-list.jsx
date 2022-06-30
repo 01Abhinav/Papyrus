@@ -13,7 +13,7 @@ const NoteList = () => {
   }, []);
 
   return (
-    <div className="card-container">
+    <div className="card-container m-3">
       {notes.length === 0 ? (
         <NoNote />
       ) : (
