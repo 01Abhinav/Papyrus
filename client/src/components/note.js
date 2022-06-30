@@ -1,27 +1,57 @@
 import React from "react";
 const axios = require("axios");
 
-const handleEdit = () => {
-  axios.put();
+const handleEdit = (id) => {
+  // console.log("hello", id);
+  const key = id.slice(6);
+  window.location = `/edit/${key}`;
 };
-const handleDelete = () => {};
-const Note = ({ header, body }) => {
+const handleDelete = (id) => {
+  const key = id.slice(6);
+  axios
+    .delete(`http://localhost:8080/api/delete/${key}`)
+    .then(() => console.log("delete success!"))
+    .then(() => (window.location = "/"))
+    .catch((err) => console.log(err));
+};
+
+const Note = ({ id, title, body, date }) => {
   return (
-    <div className="card border-success mb-3">
+    <div
+      className="card note bg-light mb-3"
+      style={{ cursor: "pointer" }}
+      onClick={() => handleEdit(id)}
+    >
       <div>
-        <div className="card-header row">
-          <div className="col-10">{header}</div>
-          <div className="btn btn-danger col" onClick={handleDelete}>
-            X
+        <div className="card-header d-flex justify-content-start">
+          <div className="col-14">
+            <h4>{title}</h4>
+          </div>
+
+          <div
+            className="col d-flex justify-content-end"
+            onClick={() => handleDelete(id)}
+          >
+            <svg
+              type="submit"
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="25"
+              fill="currentColor"
+              class="bi bi-file-earmark-x"
+              viewBox="0 0 16 16"
+            >
+              <path d="M6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146z" />
+              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+            </svg>
           </div>
         </div>
       </div>
-      <div className="card-body">
+      <div className="card-body ">
         <p className="card-text note-body">{body}</p>
       </div>
-
-      <div onClick={handleEdit} class="btn btn-secondary">
-        edit
+      <div className="b card-footer">
+        <small className="text-muted">Created on : {date.slice(0, 10)}</small>
       </div>
     </div>
   );
