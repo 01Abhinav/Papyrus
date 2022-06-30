@@ -1,4 +1,5 @@
 import Note from "./note";
+import NoNote from "./no-note";
 import { useEffect, useState } from "react";
 const axios = require("axios");
 
@@ -7,18 +8,25 @@ const NoteList = () => {
   useEffect(() => {
     axios
       .get("http://localhost:8080/")
-      .then((res) => {
-        setNotes(res.data);
-        return "success";
-      })
+      .then((res) => setNotes(res.data))
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <div className="card-container">
-      {notes.map((note) => (
-        <Note key={""} header={note.title} body={note.body} />
-      ))}
+      {notes.length === 0 ? (
+        <NoNote />
+      ) : (
+        notes.map((note) => (
+          <Note
+            key={note._key}
+            id={note._id}
+            title={note.title}
+            body={note.body}
+            date={note.date}
+          />
+        ))
+      )}
     </div>
   );
 };

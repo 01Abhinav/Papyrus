@@ -1,5 +1,5 @@
 const Banner = () => {
-  return <h1 align="center">PAPYRUS</h1>;
+  return <h3 align="center">PAPYRUS</h3>;
 };
 
 export default Banner;

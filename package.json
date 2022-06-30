@@ -19,6 +19,7 @@
   "homepage": "https://github.com/01Abhinav/Papyrus#readme",
   "dependencies": {
     "arangojs": "^5.8.0",
+    "cors": "^2.8.5",
     "express": "^4.18.1",
     "nodemon": "^2.0.18"
   }
