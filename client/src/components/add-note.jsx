@@ -58,8 +58,8 @@ const AddNote = () => {
       body: body,
       date: date,
     };
-    fetch(`http://localhost:8080/api/edit/${key}`, {
-      method: "POST",
+    fetch(`http://localhost:8080/api/getNote/${key}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },

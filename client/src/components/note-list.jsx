@@ -7,7 +7,7 @@ const NoteList = () => {
   const [notes, setNotes] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/")
+      .get("http://localhost:8080/api/getNote/")
       .then((res) => setNotes(res.data))
       .catch((err) => console.log(err));
   }, []);

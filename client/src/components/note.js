@@ -9,7 +9,7 @@ const handleEdit = (id) => {
 const handleDelete = (id) => {
   const key = id.slice(6);
   axios
-    .delete(`http://localhost:8080/api/delete/${key}`)
+    .delete(`http://localhost:8080/api/getNote/${key}`)
     .then(() => console.log("delete success!"))
     .then(() => (window.location = "/"))
     .catch((err) => console.log(err));
