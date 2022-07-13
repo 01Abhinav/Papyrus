@@ -27,6 +27,26 @@ class Navbar extends Component {
               <Link className="nav-item nav-link m-2" to="/">
                 "Writers live twice."
               </Link>
+              {localStorage.getItem("token") === null ? (
+                <Link className="nav-item nav-link m-2" to="/login">
+                  Login
+                </Link>
+              ) : (
+                <div
+                  className="nav-item nav-link m-2"
+                  onClick={() => {
+                    localStorage.setItem("token", null);
+                    console.log("logout done!");
+                    window.location("/");
+                  }}
+                >
+                  Logout
+                </div>
+              )}
+
+              <Link className="nav-item nav-link m-2" to="/signup">
+                Signup
+              </Link>
             </div>
           </div>
         </div>
