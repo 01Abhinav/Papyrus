@@ -7,10 +7,17 @@ const AddNote = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [date, setDate] = useState("");
+  const [user, setUser] = useState("");
 
   useEffect(() => {
+    setUser(localStorage.getItem("user"));
     axios
-      .get(`http://localhost:8080/api/getNote/${key}`)
+      .get(`http://localhost:8080/api/getNote/${key}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
       .then((res) => {
         console.log(res);
         setTitle(res.data[0].title);
@@ -34,12 +41,14 @@ const AddNote = () => {
     const data = {
       title: title,
       body: body,
+      user: user,
     };
     title
       ? fetch("http://localhost:8080/api/create", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
           body: JSON.stringify(data),
         })
@@ -47,6 +56,7 @@ const AddNote = () => {
             console.log("new note request sent");
             window.location = "/";
           })
+
           .catch((err) => console.log(err))
       : window.alert("Empty Fields :(");
   }
@@ -58,10 +68,11 @@ const AddNote = () => {
       body: body,
       date: date,
     };
-    fetch(`http://localhost:8080/api/edit/${key}`, {
-      method: "POST",
+    fetch(`http://localhost:8080/api/getNote/${key}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify(data),
     })
@@ -89,7 +100,7 @@ const AddNote = () => {
             placeholder="Title"
           />
         </div>
-        <div className="form-group col-lg-12 m-2">
+        <div className="form-group col-lg-12 m-2 ">
           <textarea
             type="text"
             rows="10"

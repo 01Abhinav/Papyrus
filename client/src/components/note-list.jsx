@@ -7,7 +7,11 @@ const NoteList = () => {
   const [notes, setNotes] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/")
+      .get("http://localhost:8080/api/getNote/", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
       .then((res) => setNotes(res.data))
       .catch((err) => console.log(err));
   }, []);
