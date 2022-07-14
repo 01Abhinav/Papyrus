@@ -4,10 +4,19 @@ const collection = db.collection("notes");
 const router = require("express").Router();
 
 router.route("/getNote/").get((req, res, next) => {
+  const loggedUser = req.user.username;
+  console.log("loggedUser ", loggedUser);
+
   let notes = [];
   collection
     .all()
-    .then((cursor) => cursor.map((doc) => notes.push(doc)))
+    .then((cursor) =>
+      cursor.map((doc) => {
+        if (doc.user === loggedUser) {
+          notes.push(doc);
+        }
+      })
+    )
     .then(() => res.status(200).json(notes))
     .catch((err) => console.error("Failed to fetch documents:", err));
 });
@@ -36,6 +45,7 @@ router.route("/create/").post((req, res, next) => {
   const data = {
     title: req.body.title,
     body: req.body.body,
+    user: req.body.user,
     date: new Date(),
   };
 

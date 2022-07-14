@@ -25,7 +25,7 @@ router.route("/login/").post((req, res, next) => {
     .then((oldUser) => {
       console.log(oldUser);
       const token = jwt.sign(oldUser, "enigma");
-      res.status(200).json({ token: token });
+      res.status(200).json({ token: token, user: oldUser.username });
       //return { token: token };
     })
     .catch((err) => console.log(err));

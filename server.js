@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 const apiRoute = require("./routes/api-route");
 const userRoute = require("./routes/user-route");
+
 const isAuth = require("./middleware/is-auth");
 
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -34,18 +34,23 @@ const Login = () => {
       // })
       .then((resData) => {
         localStorage.setItem("token", resData.data.token);
+        localStorage.setItem("user", resData.data.user);
 
         window.location = "/";
       })
+
       .catch((err) => console.log(err));
   }
 
   return (
-    <div style={{ margin: 100 }}>
-      <h1 className="m-2">Login</h1>
+    <div className=" col-lg-4" style={{ margin: 100 }}>
+      <h1 className="my-2">Login</h1>
 
       <form onSubmit={submit}>
-        <div className="form-group col-lg-12 m-2">
+        <div className=" form-group input-group  my-4">
+          <div class="input-group-prepend">
+            <div class="input-group-text">@</div>
+          </div>
           <input
             type="text"
             className="form-control"
@@ -54,9 +59,9 @@ const Login = () => {
             placeholder="Username"
           />
         </div>
-        <div className="form-group col-lg-12 m-2">
+        <div className="form-group  my-4">
           <input
-            type="text"
+            type="password"
             className="form-control"
             value={password}
             onChange={onPasswordChange}
@@ -65,7 +70,9 @@ const Login = () => {
         </div>
 
         <div className="d-flex justify-content-start">
-          <button type="submit">Submit</button>
+          <button type="submit" className="btn btn-dark">
+            Submit
+          </button>
         </div>
       </form>
     </div>
