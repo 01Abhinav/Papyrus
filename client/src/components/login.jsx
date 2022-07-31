@@ -20,7 +20,7 @@ const Login = () => {
     };
 
     axios
-      .post("http://localhost:8080/user/login/", user, {
+      .post("/user/login/", user, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -35,7 +35,6 @@ const Login = () => {
       .then((resData) => {
         localStorage.setItem("token", resData.data.token);
         localStorage.setItem("user", resData.data.user);
-
         window.location = "/";
       })
 

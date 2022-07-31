@@ -7,7 +7,7 @@ const NoteList = () => {
   const [notes, setNotes] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/getNote/", {
+      .get("/api/getNote/", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -25,7 +25,7 @@ const NoteList = () => {
           <Note
             key={note._key}
             id={note._id}
-            title={note.title}
+            title={note.title <= 20 ? note.title : note.title.substring(0, 20)}
             body={note.body}
             date={note.date}
           />
