@@ -7,12 +7,13 @@ const AddNote = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [date, setDate] = useState("");
+  const [type, setType] = useState("");
   const [user, setUser] = useState("");
 
   useEffect(() => {
     setUser(localStorage.getItem("user"));
     axios
-      .get(`http://localhost:8080/api/getNote/${key}`, {
+      .get(`/api/getNote/${key}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
@@ -39,12 +40,13 @@ const AddNote = () => {
     e.preventDefault();
 
     const data = {
-      title: title,
+      title: title.toUpperCase(),
       body: body,
       user: user,
+      type: type,
     };
     title
-      ? fetch("http://localhost:8080/api/create", {
+      ? fetch("/api/create", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -64,11 +66,12 @@ const AddNote = () => {
     e.preventDefault();
 
     const data = {
-      title: title,
+      title: title.toUpperCase(),
       body: body,
       date: date,
+      type: type,
     };
-    fetch(`http://localhost:8080/api/getNote/${key}`, {
+    fetch(`/api/getNote/${key}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -85,11 +88,17 @@ const AddNote = () => {
 
   return (
     <div style={{ margin: 100 }}>
-      {key ? (
-        <h1 className="m-2">Edit Note</h1>
-      ) : (
-        <h1 className="m-2">Create Note</h1>
-      )}
+      <div className="row">
+        <div className="col">
+          {key ? (
+            <h1 className="m-2">Edit Note</h1>
+          ) : (
+            <h1 className="m-2">Create Note</h1>
+          )}
+        </div>
+        <div className="col">abc</div>
+      </div>
+
       <form onSubmit={submit}>
         <div className="form-group col-lg-12 m-2">
           <input
