@@ -47,8 +47,8 @@ const Login = () => {
 
       <form onSubmit={submit}>
         <div className=" form-group input-group  my-4">
-          <div class="input-group-prepend">
-            <div class="input-group-text">@</div>
+          <div className="input-group-prepend">
+            <div className="input-group-text">@</div>
           </div>
           <input
             type="text"
