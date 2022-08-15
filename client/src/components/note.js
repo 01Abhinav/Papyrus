@@ -25,11 +25,7 @@ const handleDelete = (id) => {
 
 const Note = ({ id, title, body, date }) => {
   return (
-    <div
-      className="card note bg-light mb-3"
-      style={{ cursor: "pointer" }}
-      xmlnsx
-    >
+    <div className="card note bg-light mb-3" style={{ cursor: "pointer" }}>
       <div>
         <div className="card-header d-flex justify-content-start">
           <div className="col-14">
