@@ -7,7 +7,7 @@ const AddNote = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [date, setDate] = useState("");
-  const [type, setType] = useState("");
+  // const [type, setType] = useState("");
   const [user, setUser] = useState("");
 
   useEffect(() => {
@@ -27,6 +27,7 @@ const AddNote = () => {
       })
       .then(() => console.log("note info fetched!"))
       .catch((err) => console.log(err));
+    // eslint-disable-next-line
   }, []);
 
   function onChangeTitle(e) {
@@ -43,7 +44,7 @@ const AddNote = () => {
       title: title.toUpperCase(),
       body: body,
       user: user,
-      type: type,
+      //type: type,
     };
     title
       ? fetch("/api/create", {
@@ -69,7 +70,7 @@ const AddNote = () => {
       title: title.toUpperCase(),
       body: body,
       date: date,
-      type: type,
+      //type: type,
     };
     fetch(`/api/getNote/${key}`, {
       method: "PUT",
@@ -96,7 +97,6 @@ const AddNote = () => {
             <h1 className="m-2">Create Note</h1>
           )}
         </div>
-        <div className="col">abc</div>
       </div>
 
       <form onSubmit={submit}>

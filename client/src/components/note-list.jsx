@@ -14,14 +14,14 @@ const NoteList = () => {
       })
       .then((res) => setNotes(res.data))
       .catch((err) => console.log(err));
+    // eslint-disable-next-line
   }, []);
 
   return (
     <div className="card-container m-3">
-      {notes.length === 0 ? (
-        <NoNote />
-      ) : (
-        notes.map((note) => (
+      {notes.length === 0 && <NoNote />}
+      {notes.length !== 0 &&
+        notes?.map((note) => (
           <Note
             key={note._key}
             id={note._id}
@@ -29,8 +29,7 @@ const NoteList = () => {
             body={note.body}
             date={note.date}
           />
-        ))
-      )}
+        ))}
     </div>
   );
 };
