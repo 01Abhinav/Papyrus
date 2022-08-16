@@ -40,12 +40,13 @@ router.route("/getNote/:key").get((req, res, next) => {
 });
 
 router.route("/create/").post((req, res, next) => {
-  console.log(req.body);
+  console.log(req.body, " here");
 
   const data = {
     title: req.body.title,
     body: req.body.body,
     user: req.body.user,
+    sentiment: req.body.sentiment,
     date: new Date(),
   };
 
@@ -62,6 +63,7 @@ router.route("/getNote/:key").put((req, res, next) => {
     title: req.body.title,
     body: req.body.body,
     date: req.body.date,
+    sentiment: req.body.sentiment,
   };
 
   collection

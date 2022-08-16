@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -7,7 +8,6 @@ const AddNote = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [date, setDate] = useState("");
-  // const [type, setType] = useState("");
   const [user, setUser] = useState("");
 
   useEffect(() => {
@@ -40,24 +40,35 @@ const AddNote = () => {
   function submit(e) {
     e.preventDefault();
 
-    const data = {
-      title: title.toUpperCase(),
-      body: body,
-      user: user,
-      //type: type,
-    };
     title
-      ? fetch("/api/create", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-          body: JSON.stringify(data),
-        })
+      ? axios
+          .post(
+            "https://api.meaningcloud.com/sentiment-2.1?key=e7dba93913e398e8602147ad1d45f545&txt=" +
+              body
+          )
+          .then(({ data: { score_tag } }) => {
+            const data = {
+              title: title.toUpperCase(),
+              body: body,
+              user: user,
+              sentiment: score_tag,
+              //type: type,
+            };
+            return data;
+          })
+          .then((data) => {
+            fetch("/api/create", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+              body: JSON.stringify(data),
+            });
+          })
           .then(() => {
             console.log("new note request sent");
-            window.location = "/";
+            //window.location = "/";
           })
 
           .catch((err) => console.log(err))
@@ -65,24 +76,33 @@ const AddNote = () => {
   }
   function edit(e) {
     e.preventDefault();
-
-    const data = {
-      title: title.toUpperCase(),
-      body: body,
-      date: date,
-      //type: type,
-    };
-    fetch(`/api/getNote/${key}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify(data),
-    })
+    axios
+      .post(
+        "https://api.meaningcloud.com/sentiment-2.1?key=e7dba93913e398e8602147ad1d45f545&txt=" +
+          body
+      )
+      .then(({ data: { score_tag } }) => {
+        const data = {
+          title: title.toUpperCase(),
+          body: body,
+          date: date,
+          sentiment: score_tag,
+        };
+        return data;
+      })
+      .then((data) => {
+        fetch(`/api/getNote/${key}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          body: JSON.stringify(data),
+        });
+      })
       .then(() => {
         console.log("update note request sent");
-        window.location = "/";
+        //window.location = "/";
       })
       .catch((err) => console.log(err));
   }
