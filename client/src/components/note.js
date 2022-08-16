@@ -23,13 +23,14 @@ const handleDelete = (id) => {
     .catch((err) => console.log(err));
 };
 
-const Note = ({ id, title, body, date }) => {
+const Note = ({ id, title, body, date, sentiment }) => {
   return (
     <div className="card note bg-light mb-3" style={{ cursor: "pointer" }}>
       <div>
         <div className="card-header d-flex justify-content-start">
           <div className="col-14">
             <h4>{title}</h4>
+            <h6>{sentiment}</h6>
           </div>
 
           <div className="col d-flex justify-content-end">

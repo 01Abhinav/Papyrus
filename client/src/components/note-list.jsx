@@ -28,6 +28,7 @@ const NoteList = () => {
             title={note.title <= 20 ? note.title : note.title.substring(0, 20)}
             body={note.body}
             date={note.date}
+            sentiment={note.sentiment}
           />
         ))}
     </div>
