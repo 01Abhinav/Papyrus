@@ -12,5 +12,15 @@ export default createTheme({
       main: "#002B5B",
       dark: "#2B4865",
     },
+
+    secondary: {
+      light: "#2e42db",
+      main: "#0013a1",
+      dark: "#1b2ba8",
+    },
+    common: {
+      white: "#fff",
+    },
+
   },
 });
