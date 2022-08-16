@@ -12,6 +12,7 @@ export default createTheme({
       main: "#002B5B",
       dark: "#2B4865",
     },
+
     secondary: {
       light: "#2e42db",
       main: "#0013a1",
@@ -20,5 +21,6 @@ export default createTheme({
     common: {
       white: "#fff",
     },
+
   },
 });

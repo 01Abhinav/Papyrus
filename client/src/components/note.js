@@ -86,6 +86,7 @@ function Note(props) {
     console.log("hello", id);
     const key = id.slice(6);
 
+
     window.location = `/edit/${key}`;
   };
   const handleDelete = (id) => {
@@ -104,6 +105,8 @@ function Note(props) {
       .then(() => (window.location = "/"))
       .catch((err) => console.log(err));
   };
+
+
 
   return (
     <Grid item xs={12} md={4}>

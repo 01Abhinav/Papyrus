@@ -152,5 +152,6 @@ export default function NoteList() {
         </main>
       </Container>
     </>
+
   );
 }
