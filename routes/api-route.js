@@ -47,7 +47,7 @@ router.route("/create/").post((req, res, next) => {
     body: req.body.body,
     user: req.body.user,
     sentiment: req.body.sentiment,
-    date: new Date(),
+    date: new Date(Date.now()).toLocaleString().split(",")[0],
   };
 
   collection

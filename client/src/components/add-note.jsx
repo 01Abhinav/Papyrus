@@ -1,7 +1,11 @@
 import axios from "axios";
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { Editor } from "@tinymce/tinymce-react";
+
+import { TextField, Container, Button, Box, Chip } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
 
 const AddNote = () => {
   const { key } = useParams();
@@ -9,6 +13,15 @@ const AddNote = () => {
   const [body, setBody] = useState("");
   const [date, setDate] = useState("");
   const [user, setUser] = useState("");
+
+  const editorRef = useRef(null);
+  const log = () => {
+    if (editorRef.current) {
+      const bd = editorRef.current.getContent();
+      console.log(bd.replace(/<[^>]+>/g, ""));
+      // setBody();
+    }
+  };
 
   useEffect(() => {
     setUser(localStorage.getItem("user"));
@@ -33,23 +46,22 @@ const AddNote = () => {
   function onChangeTitle(e) {
     setTitle(e.target.value);
   }
-  function onChangeBody(e) {
-    setBody(e.target.value);
-  }
 
   function submit(e) {
     e.preventDefault();
+
+    const newBody = editorRef.current.getContent();
 
     title
       ? axios
           .post(
             "https://api.meaningcloud.com/sentiment-2.1?key=e7dba93913e398e8602147ad1d45f545&txt=" +
-              body
+              JSON.stringify(body)
           )
           .then(({ data: { score_tag } }) => {
             const data = {
               title: title.toUpperCase(),
-              body: body,
+              body: newBody,
               user: user,
               sentiment: score_tag,
               //type: type,
@@ -68,7 +80,7 @@ const AddNote = () => {
           })
           .then(() => {
             console.log("new note request sent");
-            //window.location = "/";
+            window.location = "/";
           })
 
           .catch((err) => console.log(err))
@@ -76,15 +88,17 @@ const AddNote = () => {
   }
   function edit(e) {
     e.preventDefault();
+    const newBody = editorRef.current.getContent();
+
     axios
       .post(
         "https://api.meaningcloud.com/sentiment-2.1?key=e7dba93913e398e8602147ad1d45f545&txt=" +
-          body
+          JSON.stringify(body)
       )
       .then(({ data: { score_tag } }) => {
         const data = {
           title: title.toUpperCase(),
-          body: body,
+          body: newBody,
           date: date,
           sentiment: score_tag,
         };
@@ -102,62 +116,101 @@ const AddNote = () => {
       })
       .then(() => {
         console.log("update note request sent");
-        //window.location = "/";
+        window.location = "/";
       })
       .catch((err) => console.log(err));
   }
 
   return (
-    <div style={{ margin: 100 }}>
-      <div className="row">
-        <div className="col">
+    <Container maxWidth="lg">
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: { xs: "flex", justifyContent: "space-between" },
+        }}
+      >
+        <Box my={2}>
           {key ? (
-            <h1 className="m-2">Edit Note</h1>
+            <Chip
+              icon={<EditIcon />}
+              sx={{ fontFamily: "Sans-serif" }}
+              label="Edit Note"
+            />
           ) : (
-            <h1 className="m-2">Create Note</h1>
+            <Chip
+              sx={{ fontFamily: "Sans-serif" }}
+              icon={<AddIcon />}
+              label="Create Note"
+            />
           )}
-        </div>
-      </div>
-
-      <form onSubmit={submit}>
-        <div className="form-group col-lg-12 m-2">
-          <input
-            type="text"
-            className="form-control"
-            value={title}
+        </Box>
+        <Button
+          sx={{ marginY: 2 }}
+          variant="contained"
+          color="primary"
+          type="button"
+          onClick={(e) => {
+            log();
+            key ? edit(e) : submit(e);
+          }}
+        >
+          Save
+        </Button>
+      </Box>
+      <main>
+        <Box>
+          <TextField
+            //required
+            fullWidth
+            label="Title"
+            defaultValue={title}
             onChange={onChangeTitle}
-            placeholder="Title"
+            placeholder="..."
+            sx={{ marginY: 2 }}
           />
-        </div>
-        <div className="form-group col-lg-12 m-2 ">
-          <textarea
-            type="text"
-            rows="10"
-            cols="50"
-            className="form-control"
-            value={body}
-            onChange={onChangeBody}
-            placeholder="Write Here..."
+          <Editor
+            apiKey="hpefe3gjjlw6na2j37jyi0ciswljghb2volu0sba1b4wen02"
+            onInit={(evt, editor) => (editorRef.current = editor)}
+            initialValue={body}
+            init={{
+              height: 450,
+              menubar: false,
+              plugins: [
+                "a11ychecker",
+                "advlist",
+                "advcode",
+                "advtable",
+                "autolink",
+                "checklist",
+                "export",
+                "lists",
+                "link",
+                "image",
+                "charmap",
+                "preview",
+                "anchor",
+                "searchreplace",
+                "visualblocks",
+                "powerpaste",
+                "fullscreen",
+                "formatpainter",
+                "insertdatetime",
+                "media",
+                "table",
+                "help",
+                "wordcount",
+              ],
+              toolbar:
+                "undo redo | casechange blocks | bold italic backcolor | " +
+                "alignleft aligncenter alignright alignjustify | " +
+                "bullist numlist checklist outdent indent | removeformat | a11ycheck code table help",
+              content_style:
+                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+            }}
           />
-        </div>
-
-        <div className="d-flex justify-content-start">
-          <svg
-            type="submit"
-            onClick={key ? edit : submit}
-            xmlns="http://www.w3.org/2000/svg"
-            width="40"
-            height="40"
-            fill="currentColor"
-            className="bi bi-file-arrow-up-fill m-2"
-            viewBox="0 0 16 16"
-          >
-            <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM7.5 6.707 6.354 7.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707z" />
-          </svg>
-          <h4 className="d-flex align-items-end">save</h4>
-        </div>
-      </form>
-    </div>
+        </Box>
+      </main>
+    </Container>
   );
 };
 export default AddNote;

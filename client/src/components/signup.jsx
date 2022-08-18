@@ -91,6 +91,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 export default function Login() {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
@@ -99,6 +100,7 @@ export default function Login() {
     e.preventDefault();
     const data = {
       username: username,
+      email: email,
       password: password,
     };
 
@@ -111,7 +113,7 @@ export default function Login() {
     })
       .then((response) => {
         console.log(response, "signup request sent");
-        window.location = "/";
+        navigate("/");
       })
       .catch((err) => console.log(err));
   }
@@ -173,6 +175,18 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
+              id="email"
+              label="email"
+              name="email"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
               name="password"
               label="Password"
               type="password"
@@ -200,7 +214,7 @@ export default function Login() {
                   variant="body2"
                   sx={{ cursor: "pointer" }}
                 >
-                  Already have an account? Sign in
+                  Already have an account? Log in
                 </Link>
               </Grid>
             </Grid>
