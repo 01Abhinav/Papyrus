@@ -13,9 +13,12 @@ import {
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { red } from "@mui/material/colors";
 
 function Note(props) {
-  const { id, title, body, date /*, image, imageLabel*/ } = props;
+  const { id, title, body, date, sentiment } = props;
+  const navigate = useNavigate();
 
   function htmlToText(html) {
     var temp = document.createElement("div");
@@ -27,7 +30,7 @@ function Note(props) {
     console.log("hello", id);
     const key = id.slice(6);
 
-    window.location = `/edit/${key}`;
+    navigate(`/edit/${key}`);
   };
   const handleDelete = (id) => {
     console.log("delete", id);
@@ -57,9 +60,10 @@ function Note(props) {
           }
           subheaderTypographyProps={{ variant: "overline" }}
           title={title}
-          subheader={date}
+          subheader={date + " ----------------/ " + sentiment}
           titleTypographyProps={{ variant: "h6" }}
         />
+
         <CardActionArea onClick={() => handleEdit(id)}>
           <CardContent sx={{ flex: 1 }}>
             <Typography variant="subtitle1" paragraph className="note-body">

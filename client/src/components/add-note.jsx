@@ -59,6 +59,7 @@ const AddNote = () => {
               JSON.stringify(body)
           )
           .then(({ data: { score_tag } }) => {
+            console.log("->>>>", score_tag);
             const data = {
               title: title.toUpperCase(),
               body: newBody,

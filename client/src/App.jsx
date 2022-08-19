@@ -18,45 +18,14 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterMoment}>
+        <Navbar />
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Navbar />
-                <NoteList />
-              </>
-            }
-          />
-          <Route
-            path="/create"
-            element={
-              <>
-                <Navbar />
-                <AddNote />
-              </>
-            }
-          />
-          <Route
-            path="/edit/:key"
-            element={
-              <>
-                <Navbar />
-                <AddNote />
-              </>
-            }
-          />
+          <Route path="/" element={<NoteList />} />
+          <Route path="/create" element={<AddNote />} />
+          <Route path="/edit/:key" element={<AddNote />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route
-            path="*"
-            element={
-              <>
-                <Navbar />
-                <Error404 />
-              </>
-            }
-          />
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </LocalizationProvider>
     </ThemeProvider>
