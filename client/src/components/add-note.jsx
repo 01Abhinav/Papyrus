@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 
 import { TextField, Container, Button, Box, Chip } from "@mui/material";
@@ -13,6 +13,8 @@ const AddNote = () => {
   const [body, setBody] = useState("");
   const [date, setDate] = useState("");
   const [user, setUser] = useState("");
+
+  const navigate = useNavigate();
 
   const editorRef = useRef(null);
   const log = () => {
@@ -56,7 +58,7 @@ const AddNote = () => {
       ? axios
           .post(
             "https://api.meaningcloud.com/sentiment-2.1?key=e7dba93913e398e8602147ad1d45f545&txt=" +
-              JSON.stringify(body)
+              JSON.stringify(newBody)
           )
           .then(({ data: { score_tag } }) => {
             console.log("->>>>", score_tag);
@@ -81,7 +83,7 @@ const AddNote = () => {
           })
           .then(() => {
             console.log("new note request sent");
-            window.location = "/";
+            navigate("/");
           })
 
           .catch((err) => console.log(err))
@@ -94,7 +96,7 @@ const AddNote = () => {
     axios
       .post(
         "https://api.meaningcloud.com/sentiment-2.1?key=e7dba93913e398e8602147ad1d45f545&txt=" +
-          JSON.stringify(body)
+          JSON.stringify(newBody)
       )
       .then(({ data: { score_tag } }) => {
         const data = {
@@ -117,7 +119,7 @@ const AddNote = () => {
       })
       .then(() => {
         console.log("update note request sent");
-        window.location = "/";
+        navigate("/");
       })
       .catch((err) => console.log(err));
   }
@@ -164,6 +166,7 @@ const AddNote = () => {
             //required
             fullWidth
             label="Title"
+            value={title}
             defaultValue={title}
             onChange={onChangeTitle}
             placeholder="..."

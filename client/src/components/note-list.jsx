@@ -14,9 +14,7 @@ const axios = require("axios");
 
 export default function NoteList() {
   const [notes, setNotes] = useState([]);
-  const [date, setDate] = useState(
-    new Date(Date.now()).toLocaleString().split(",")[0]
-  );
+  const [date, setDate] = useState(moment(new Date()).format("D/M/yyyy"));
   const [vn, setVn] = useState(0);
   const [n, setN] = useState(0);
   const [neu, setNeu] = useState(0);
@@ -38,16 +36,17 @@ export default function NoteList() {
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    // const _notes = notes.filter(note => note)
-    const filterDate = moment(date).format("D/M/YYYY");
-    const _notes = notes.filter((note) => {
-      console.log(note.date, filterDate);
-      return note.date === filterDate;
-    });
+  // useEffect(() => {
+  //   // const _notes = notes.filter(note => note)
+  //   const filterDate = moment(date).format("D/M/yyyy");
+  //   const _notes = notes.filter((note) => {
+  //     //console.log(note.date, filterDate);
+  //     return note.date === filterDate;
+  //   });
 
-    setNotes(_notes);
-  }, [date]);
+  //   setNotes(_notes);
+  //   // eslint-disable-next-line
+  // }, [date]);
 
   useEffect(() => {
     for (let x in notes) {

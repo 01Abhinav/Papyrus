@@ -14,7 +14,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { red } from "@mui/material/colors";
+// import { red } from "@mui/material/colors";
 
 function Note(props) {
   const { id, title, body, date, sentiment } = props;
@@ -51,7 +51,7 @@ function Note(props) {
 
   return (
     <Grid item xs={8} md={4}>
-      <Card sx={{ maxWidth: 410 }}>
+      <Card variant="outlined" sx={{ maxWidth: 410 }}>
         <CardHeader
           action={
             <IconButton aria-label="settings" onClick={() => handleDelete(id)}>

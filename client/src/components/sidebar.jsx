@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+
+import moment from "moment";
+
 import {
   Grid,
   Paper,
@@ -22,12 +25,6 @@ import FunctionsIcon from "@mui/icons-material/Functions";
 export default function Sidebar({ p, n, vn, vp, neu, window, date, setDate }) {
   //   const { archives, description, social, title, date } = props;
   const [toggleDrawer, setToggleDrawer] = useState(false);
-
-  const currDate = new Date(Date.now()).toLocaleString().split(",")[0];
-  useEffect(() => {
-    setDate(currDate);
-    // console.log(date);
-  }, [date, currDate]);
 
   const DatePickerArea = styled("div")(({ theme }) => ({
     position: "relative",
@@ -57,13 +54,19 @@ export default function Sidebar({ p, n, vn, vp, neu, window, date, setDate }) {
           <br />
           <DatePickerArea>
             <DesktopDatePicker
+              disableMaskedInput
               inputFormat="D/M/yyyy"
               value={date}
-              onChange={(newDate) => setDate(newDate)}
-              renderInput={(params) => <TextField {...params} />}
+              onChange={(newDate) =>
+                setDate(moment(newDate).format("D/M/yyyy"))
+              }
+              renderInput={(params) => {
+                //console.log(params);
+                return <TextField {...params} />;
+              }}
             />
           </DatePickerArea>
-          <Typography align="center">{"Today " + currDate}</Typography>
+          <Typography align="center">{"Today " + date}</Typography>
           <br />
           <Divider>sentiment data</Divider>
           <br />
