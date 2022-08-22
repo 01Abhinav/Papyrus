@@ -19,6 +19,7 @@ router.route("/login/").post((req, res, next) => {
           };
         }
       });
+      //console.log(oldUser, username);
       return oldUser;
     })
     .then((oldUser) => {

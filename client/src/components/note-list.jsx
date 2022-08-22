@@ -14,7 +14,8 @@ const axios = require("axios");
 
 export default function NoteList() {
   const [notes, setNotes] = useState([]);
-  const [date, setDate] = useState(moment(new Date()).format("D/M/yyyy"));
+  const [filteredNotes, setFilteredNotes] = useState([]);
+  const [date, setDate] = useState(new Date("2014-08-18T21:11:54"));
   const [vn, setVn] = useState(0);
   const [n, setN] = useState(0);
   const [neu, setNeu] = useState(0);
@@ -30,26 +31,32 @@ export default function NoteList() {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
-      .then((res) => setNotes(res.data))
+      .then((res) => {
+        setNotes(res.data);
+        setFilteredNotes(res.data);
+      })
       .catch((err) => console.log(err));
 
     // eslint-disable-next-line
   }, []);
 
-  // useEffect(() => {
-  //   // const _notes = notes.filter(note => note)
-  //   const filterDate = moment(date).format("D/M/yyyy");
-  //   const _notes = notes.filter((note) => {
-  //     //console.log(note.date, filterDate);
-  //     return note.date === filterDate;
-  //   });
-
-  //   setNotes(_notes);
-  //   // eslint-disable-next-line
-  // }, [date]);
+  useEffect(() => {
+    const _notes = notes.filter((note) => {
+      console.log(note.date, moment(date).format("D/M/yyyy"));
+      return note.date === moment(date).format("D/M/yyyy");
+    });
+    setFilteredNotes(_notes);
+    // eslint-disable-next-line
+  }, [date]);
 
   useEffect(() => {
-    for (let x in notes) {
+    setN(0);
+    setVn(0);
+    setNeu(0);
+    setP(0);
+    setVp(0);
+
+    for (let x in filteredNotes) {
       if (notes[x].sentiment === "N-") setVn((vn) => vn + 1);
       else if (notes[x].sentiment === "N") setN((n) => n + 1);
       else if (notes[x].sentiment === "P") setP((p) => p + 1);
@@ -57,7 +64,7 @@ export default function NoteList() {
       else setNeu((neu) => neu + 1);
     }
     // eslint-disable-next-line
-  }, [notes]);
+  }, [filteredNotes]);
 
   return (
     <>
@@ -72,7 +79,7 @@ export default function NoteList() {
             {notes.length === 0 ? (
               <NoNote />
             ) : (
-              notes?.map(({ _key, _id, title, ...rest }) => (
+              filteredNotes?.map(({ _key, _id, title, ...rest }) => (
                 <Note
                   key={_key}
                   id={_id}

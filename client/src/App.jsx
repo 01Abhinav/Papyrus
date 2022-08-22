@@ -7,17 +7,14 @@ import Login from "./components/login";
 import Signup from "./components/signup";
 
 import { Routes, Route } from "react-router-dom";
-import { ThemeProvider } from "@mui/material";
-
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 
 import theme from "./theme";
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <LocalizationProvider dateAdapter={AdapterMoment}>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
         <Navbar />
         <Routes>
           <Route path="/" element={<NoteList />} />
@@ -27,8 +24,8 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
-      </LocalizationProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 };
 

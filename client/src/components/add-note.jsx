@@ -83,7 +83,7 @@ const AddNote = () => {
           })
           .then(() => {
             console.log("new note request sent");
-            navigate("/");
+            window.location = "/";
           })
 
           .catch((err) => console.log(err))
@@ -119,7 +119,7 @@ const AddNote = () => {
       })
       .then(() => {
         console.log("update note request sent");
-        navigate("/");
+        window.location = "/";
       })
       .catch((err) => console.log(err));
   }
