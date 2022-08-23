@@ -46,6 +46,7 @@ export default function NoteList() {
       return note.date === moment(date).format("D/M/yyyy");
     });
     setFilteredNotes(_notes);
+
     // eslint-disable-next-line
   }, [date]);
 
@@ -57,10 +58,10 @@ export default function NoteList() {
     setVp(0);
 
     for (let x in filteredNotes) {
-      if (notes[x].sentiment === "N-") setVn((vn) => vn + 1);
-      else if (notes[x].sentiment === "N") setN((n) => n + 1);
-      else if (notes[x].sentiment === "P") setP((p) => p + 1);
-      else if (notes[x].sentiment === "P+") setVp((vp) => vp + 1);
+      if (filteredNotes[x].sentiment === "N-") setVn((vn) => vn + 1);
+      else if (filteredNotes[x].sentiment === "N") setN((n) => n + 1);
+      else if (filteredNotes[x].sentiment === "P") setP((p) => p + 1);
+      else if (filteredNotes[x].sentiment === "P+") setVp((vp) => vp + 1);
       else setNeu((neu) => neu + 1);
     }
     // eslint-disable-next-line
@@ -76,14 +77,14 @@ export default function NoteList() {
             spacing={4}
             sx={{ mt: 1, mx: "auto", display: "flex" }}
           >
-            {notes.length === 0 ? (
+            {filteredNotes.length === 0 ? (
               <NoNote />
             ) : (
-              filteredNotes?.map(({ _key, _id, title, ...rest }) => (
+              filteredNotes.map(({ _key, _id, title, ...rest }) => (
                 <Note
                   key={_key}
                   id={_id}
-                  title={title <= 20 ? title : title.substring(0, 20)}
+                  title={title <= 20 ? title : title}
                   {...rest}
                 />
               ))
