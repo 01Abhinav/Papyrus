@@ -15,12 +15,13 @@ const axios = require("axios");
 export default function NoteList() {
   const [notes, setNotes] = useState([]);
   const [filteredNotes, setFilteredNotes] = useState([]);
-  const [date, setDate] = useState(new Date("2014-08-18T21:11:54"));
+  const [date, setDate] = useState(new Date());
   const [vn, setVn] = useState(0);
   const [n, setN] = useState(0);
   const [neu, setNeu] = useState(0);
   const [p, setP] = useState(0);
   const [vp, setVp] = useState(0);
+  const [isFiltered, setIsFiltered] = useState(false);
 
   const navigate = useNavigate();
 
@@ -41,14 +42,17 @@ export default function NoteList() {
   }, []);
 
   useEffect(() => {
-    const _notes = notes.filter((note) => {
-      console.log(note.date, moment(date).format("D/M/yyyy"));
-      return note.date === moment(date).format("D/M/yyyy");
-    });
-    setFilteredNotes(_notes);
-
+    if (isFiltered) {
+      const _notes = notes.filter((note) => {
+        console.log(note.date, moment(date).format("D/M/yyyy"));
+        return note.date === moment(date).format("D/M/yyyy");
+      });
+      setFilteredNotes(_notes);
+    } else {
+      setFilteredNotes(notes);
+    }
     // eslint-disable-next-line
-  }, [date]);
+  }, [date, isFiltered]);
 
   useEffect(() => {
     setN(0);
@@ -58,14 +62,14 @@ export default function NoteList() {
     setVp(0);
 
     for (let x in filteredNotes) {
-      if (filteredNotes[x].sentiment === "N-") setVn((vn) => vn + 1);
+      if (filteredNotes[x].sentiment === "N+") setVn((vn) => vn + 1);
       else if (filteredNotes[x].sentiment === "N") setN((n) => n + 1);
       else if (filteredNotes[x].sentiment === "P") setP((p) => p + 1);
       else if (filteredNotes[x].sentiment === "P+") setVp((vp) => vp + 1);
       else setNeu((neu) => neu + 1);
     }
     // eslint-disable-next-line
-  }, [filteredNotes]);
+  }, [filteredNotes, isFiltered]);
 
   return (
     <>
@@ -90,6 +94,7 @@ export default function NoteList() {
               ))
             )}
           </Grid>
+
           <Sidebar
             p={p}
             n={n}
@@ -98,12 +103,15 @@ export default function NoteList() {
             neu={neu}
             date={date}
             setDate={setDate}
+            setIsFiltered={setIsFiltered}
           />
+
           <Fab
             sx={{
               position: "sticky",
               top: "90%",
               right: "2%",
+              width: "70px",
             }}
             aria-label="Add"
             color="primary"

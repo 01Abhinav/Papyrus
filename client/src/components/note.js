@@ -11,10 +11,22 @@ import {
 } from "@mui/material";
 
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-
+import SentimentVeryDissatisfiedRoundedIcon from "@mui/icons-material/SentimentVeryDissatisfiedRounded";
+import SentimentDissatisfiedRoundedIcon from "@mui/icons-material/SentimentDissatisfiedRounded";
+import SentimentNeutralIcon from "@mui/icons-material/SentimentNeutral";
+import SentimentSatisfiedRoundedIcon from "@mui/icons-material/SentimentSatisfiedRounded";
+import SentimentVerySatisfiedRoundedIcon from "@mui/icons-material/SentimentVerySatisfiedRounded";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 // import { red } from "@mui/material/colors";
+
+const face = new Map();
+
+face.set("N+", <SentimentVeryDissatisfiedRoundedIcon fontSize="small" />);
+face.set("N", <SentimentDissatisfiedRoundedIcon fontSize="small" />);
+face.set("NONE", <SentimentNeutralIcon fontSize="small" />);
+face.set("P", <SentimentSatisfiedRoundedIcon fontSize="small" />);
+face.set("P+", <SentimentVerySatisfiedRoundedIcon fontSize="small" />);
 
 function Note(props) {
   const { id, title, body, date, sentiment } = props;
@@ -60,7 +72,12 @@ function Note(props) {
           }
           subheaderTypographyProps={{ variant: "overline" }}
           title={title}
-          subheader={date + " ----------------/ " + sentiment}
+          subheader={
+            <div>
+              {date} ..............................................
+              {face.get(sentiment)}
+            </div>
+          }
           titleTypographyProps={{ variant: "h6" }}
         />
 

@@ -12,19 +12,33 @@ import {
   SwipeableDrawer,
   Toolbar,
   TextField,
+  Button,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
-import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
-import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
+
+import SentimentVeryDissatisfiedRoundedIcon from "@mui/icons-material/SentimentVeryDissatisfiedRounded";
+import SentimentDissatisfiedRoundedIcon from "@mui/icons-material/SentimentDissatisfiedRounded";
 import SentimentNeutralIcon from "@mui/icons-material/SentimentNeutral";
-import SentimentSatisfiedIcon from "@mui/icons-material/SentimentSatisfied";
-import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
+import SentimentSatisfiedRoundedIcon from "@mui/icons-material/SentimentSatisfiedRounded";
+import SentimentVerySatisfiedRoundedIcon from "@mui/icons-material/SentimentVerySatisfiedRounded";
+
 import FunctionsIcon from "@mui/icons-material/Functions";
+import ClearAllIcon from "@mui/icons-material/ClearAll";
 import DatePicker from "./datePicker";
 
 const hdate = require("human-date");
 
-export default function Sidebar({ p, n, vn, vp, neu, window, date, setDate }) {
+export default function Sidebar({
+  p,
+  n,
+  vn,
+  vp,
+  neu,
+  window,
+  date,
+  setDate,
+  setIsFiltered,
+}) {
   //   const { archives, description, social, title, date } = props;
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const currDate = new Date(Date.now()).toLocaleString().split(",")[0];
@@ -46,53 +60,90 @@ export default function Sidebar({ p, n, vn, vp, neu, window, date, setDate }) {
 
   const bar = (
     <Box
-      sx={{ width: 250 }}
+      sx={{ width: 259, marginLeft: 4, position: "fixed" }}
       role="presentation"
       onClick={() => setToggleDrawer(true)}
       onKeyDown={() => setToggleDrawer(false)}
     >
       <Grid item xs={12} md={4}>
-        <Paper elevation={0} sx={{ p: 2, bgcolor: "grey.200" }}>
+        <Paper
+          elevation={0}
+          sx={{
+            p: 2,
+            bgcolor: "grey.200",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
           <Divider>Filter by Date</Divider>
           <br />
+          <Button
+            onClick={() => {
+              setIsFiltered(false);
+            }}
+            color="error"
+            size="small"
+            variant="outlined"
+            sx={{ margin: "auto" }}
+            startIcon={<ClearAllIcon />}
+          >
+            Clear Filter
+          </Button>
+          <br />
           <DatePickerArea>
-            <DatePicker value={date} setValue={setDate} />
+            <DatePicker
+              value={date}
+              setValue={setDate}
+              setIsFiltered={setIsFiltered}
+            />
           </DatePickerArea>
           <Typography align="center">{hdate.prettyPrint(currDate)}</Typography>
+
           <br />
-          <Divider>sentiment data</Divider>
+          <Divider>Sentiment Data</Divider>
           <br />
           <div>
-            <Chip
-              size="small"
-              sx={{ mx: "2px" }}
-              icon={<SentimentVeryDissatisfiedIcon />}
-              label={vn}
-            />
-            <Chip
-              size="small"
-              sx={{ mx: "2px" }}
-              icon={<SentimentDissatisfiedIcon />}
-              label={n}
-            />
-            <Chip
-              size="small"
-              sx={{ mx: "2px" }}
-              icon={<SentimentNeutralIcon />}
-              label={neu}
-            />
-            <Chip
-              size="small"
-              sx={{ mx: "2px" }}
-              icon={<SentimentSatisfiedIcon />}
-              label={p}
-            />
-            <Chip
-              size="small"
-              sx={{ mx: "2px" }}
-              icon={<SentimentSatisfiedAltIcon />}
-              label={vp}
-            />
+            <div>
+              <Chip
+                size="small"
+                sx={{ mx: "2px" }}
+                icon={<SentimentVeryDissatisfiedRoundedIcon />}
+                label={` || ${(<b>{vn}</b>)}  Very Negative Record`}
+              />
+            </div>
+            <div>
+              <Chip
+                size="small"
+                sx={{ mx: "2px" }}
+                icon={<SentimentDissatisfiedRoundedIcon />}
+                label={` || ${n}  Negative Record`}
+              />
+            </div>
+            <div>
+              <Chip
+                size="small"
+                sx={{ mx: "2px" }}
+                icon={<SentimentNeutralIcon />}
+                label={` || ${neu}  Average Record`}
+              />
+            </div>
+            <div>
+              <Chip
+                size="small"
+                sx={{ mx: "2px" }}
+                icon={<SentimentSatisfiedRoundedIcon />}
+                label={` || ${p}  Positive Record`}
+              />
+            </div>
+            <div>
+              <Chip
+                size="small"
+                sx={{ mx: "2px" }}
+                icon={<SentimentVerySatisfiedRoundedIcon />}
+                label={` || ${vp}  Very Positive Record`}
+              />
+            </div>
           </div>
           <br />
           <Chip

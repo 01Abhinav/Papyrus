@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 
 // import MenuI/con from "@mui/icons-material/Menu";
-import AdbIcon from "@mui/icons-material/Adb";
+import ArchitectureIcon from "@mui/icons-material/Architecture";
 
 import { useNavigate } from "react-router-dom";
 
@@ -63,7 +63,9 @@ const Navbar = () => {
           disableGutters
           sx={{ display: "flex", justifyContent: "space-between" }}
         >
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1.5 }} />
+          <ArchitectureIcon
+            sx={{ display: { xs: "none", md: "flex" }, mr: 1.5 }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -94,7 +96,9 @@ const Navbar = () => {
             </IconButton>
           </Box> */}
 
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <ArchitectureIcon
+            sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
+          />
           <Typography
             variant="h6"
             noWrap
