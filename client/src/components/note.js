@@ -18,7 +18,6 @@ import SentimentSatisfiedRoundedIcon from "@mui/icons-material/SentimentSatisfie
 import SentimentVerySatisfiedRoundedIcon from "@mui/icons-material/SentimentVerySatisfiedRounded";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import { red } from "@mui/material/colors";
 
 const face = new Map();
 

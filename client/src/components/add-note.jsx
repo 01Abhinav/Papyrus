@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 
 import { TextField, Container, Button, Box, Chip } from "@mui/material";
@@ -13,8 +13,6 @@ const AddNote = () => {
   const [body, setBody] = useState("");
   const [date, setDate] = useState("");
   const [user, setUser] = useState("");
-
-  const navigate = useNavigate();
 
   const editorRef = useRef(null);
   const log = () => {
