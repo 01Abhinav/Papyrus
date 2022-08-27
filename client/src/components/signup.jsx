@@ -1,75 +1,3 @@
-// import { useState } from "react";
-
-// const Signup = () => {
-//   const [username, setUsername] = useState("");
-//   const [password, setPassword] = useState("");
-
-//   function onUsernameChange(e) {
-//     setUsername(e.target.value);
-//   }
-//   function onPasswordChange(e) {
-//     setPassword(e.target.value);
-//   }
-//   function submit(e) {
-//     e.preventDefault();
-//     const data = {
-//       username: username,
-//       password: password,
-//     };
-
-//     fetch("/user/signup/", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(data),
-//     })
-//       .then((response) => {
-//         console.log(response, "signup request sent");
-//         window.location = "/";
-//       })
-//       .catch((err) => console.log(err));
-//   }
-
-//   return (
-//     <div className=" col-lg-4" style={{ margin: 100 }}>
-//       <h1 className="my-2">Signup</h1>
-
-//       <form onSubmit={submit}>
-//         <div className="form-group input-group my-4">
-//           <div class="input-group-prepend">
-//             <div class="input-group-text">@</div>
-//           </div>
-//           <input
-//             type="text"
-//             className="form-control"
-//             value={username}
-//             onChange={onUsernameChange}
-//             placeholder="Username"
-//           />
-//         </div>
-//         <div className="form-group  my-4">
-//           <input
-//             type="password"
-//             className="form-control"
-//             value={password}
-//             onChange={onPasswordChange}
-//             placeholder="Password"
-//           />
-//         </div>
-
-//         <div className="d-flex justify-content-start">
-//           <button type="submit" className="btn btn-dark">
-//             Submit
-//           </button>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default Signup;
-
 import { useState } from "react";
 import axios from "axios";
 
@@ -91,6 +19,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 export default function Login() {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
@@ -99,6 +28,7 @@ export default function Login() {
     e.preventDefault();
     const data = {
       username: username,
+      email: email,
       password: password,
     };
 
@@ -111,7 +41,7 @@ export default function Login() {
     })
       .then((response) => {
         console.log(response, "signup request sent");
-        window.location = "/";
+        navigate("/");
       })
       .catch((err) => console.log(err));
   }
@@ -173,6 +103,18 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
+              id="email"
+              label="email"
+              name="email"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
               name="password"
               label="Password"
               type="password"
@@ -200,7 +142,7 @@ export default function Login() {
                   variant="body2"
                   sx={{ cursor: "pointer" }}
                 >
-                  Already have an account? Sign in
+                  Already have an account? Log in
                 </Link>
               </Grid>
             </Grid>

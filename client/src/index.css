@@ -33,7 +33,7 @@ code {
   width: 25rem;
 }
 .note-body {
-  height: 132px;
+  height: 100px;
   overflow-y: auto;
   padding-right: 10px;
   margin-top: 5px;

@@ -19,20 +19,20 @@ router.route("/login/").post((req, res, next) => {
           };
         }
       });
+      //console.log(oldUser, username);
       return oldUser;
     })
     .then((oldUser) => {
-      console.log(oldUser);
+      console.log(oldUser.username);
       const token = jwt.sign(oldUser, "enigma");
       res.status(200).json({ token: token, user: oldUser.username });
       //return { token: token };
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log("--->", err.body));
 });
 
 router.route("/signup/").post((req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
+  const { username, email, password } = req.body;
 
   collection
     .all()
@@ -46,6 +46,7 @@ router.route("/signup/").post((req, res, next) => {
     .then(() => {
       const newUser = {
         username: username,
+        email: email,
         password: password,
       };
 

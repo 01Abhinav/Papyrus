@@ -4,12 +4,10 @@
   "description": "A note making app",
   "main": "server.js",
   "scripts": {
-
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
-
   },
   "repository": {
     "type": "git",
@@ -28,6 +26,7 @@
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
+    "concurrently": "^7.3.0",
     "nodemon": "^2.0.18"
   }
 }

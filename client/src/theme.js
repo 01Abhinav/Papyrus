@@ -8,9 +8,11 @@ export default createTheme({
   },
   palette: {
     primary: {
-      light: "#8FE3CF",
-      main: "#002B5B",
-      dark: "#2B4865",
+      main: "#2C3333",
+      darker: "#222831",
+      dark: "#393E46",
+      light: "#FFD369",
+      lighter: "#EEEEEE",
     },
 
     secondary: {
@@ -21,6 +23,5 @@ export default createTheme({
     common: {
       white: "#fff",
     },
-
   },
 });
