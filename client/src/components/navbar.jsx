@@ -14,18 +14,12 @@ import {
   Avatar,
 } from "@mui/material";
 
-// import MenuI/con from "@mui/icons-material/Menu";
 import ArchitectureIcon from "@mui/icons-material/Architecture";
 
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  // const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  // const handleOpenNavMenu = (event) => {
-  //   setAnchorElNav(event.currentTarget);
-  // };
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -83,18 +77,6 @@ const Navbar = () => {
           >
             PAPYRUS
           </Typography>
-          {/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-          </Box> */}
 
           <ArchitectureIcon
             sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
@@ -122,7 +104,7 @@ const Navbar = () => {
               <>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Remy Sharp" src="/broken-image.jpg" />
+                    <Avatar alt="User Image" src={"/broken-image.jpg"} />
                   </IconButton>
                 </Tooltip>
                 <Menu

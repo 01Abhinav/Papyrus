@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import moment from "moment";
-
 import {
   Grid,
   Paper,
@@ -11,7 +9,6 @@ import {
   Box,
   SwipeableDrawer,
   Toolbar,
-  TextField,
   Button,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
@@ -39,7 +36,6 @@ export default function Sidebar({
   setDate,
   setIsFiltered,
 }) {
-  //   const { archives, description, social, title, date } = props;
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const currDate = new Date(Date.now()).toLocaleString().split(",")[0];
 
@@ -109,7 +105,7 @@ export default function Sidebar({
                 size="small"
                 sx={{ mx: "2px" }}
                 icon={<SentimentVeryDissatisfiedRoundedIcon />}
-                label={` || ${(<b>{vn}</b>)}  Very Negative Record`}
+                label={` || ${vn}  Very Negative Record`}
               />
             </div>
             <div>
@@ -160,10 +156,9 @@ export default function Sidebar({
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    // <Grid xs={3} sx={{ marginLeft: "auto", mt: 5 }}>
     <Box
       component="nav"
-      sx={{ width: { sm: 240 }, flexShrink: { sm: 0 } }}
+      sx={{ width: { sm: 240 }, flexShrink: { sm: 0 }, height: "100vh" }}
       aria-label="mailbox folders"
     >
       <SwipeableDrawer
@@ -186,6 +181,5 @@ export default function Sidebar({
         {bar}
       </Grid>
     </Box>
-    // </Grid>
   );
 }
