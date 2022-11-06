@@ -55,7 +55,7 @@ const AddNote = () => {
     title
       ? axios
           .post(
-            "https://api.meaningcloud.com/sentiment-2.1?key=e7dba93913e398e8602147ad1d45f545&txt=" +
+            `https://api.meaningcloud.com/sentiment-2.1?key=${SENTIMENT_KEY}` +
               JSON.stringify(newBody)
           )
           .then(({ data: { score_tag } }) => {
@@ -93,7 +93,7 @@ const AddNote = () => {
 
     axios
       .post(
-        "https://api.meaningcloud.com/sentiment-2.1?key=e7dba93913e398e8602147ad1d45f545&txt=" +
+        `https://api.meaningcloud.com/sentiment-2.1?key=${SENTIMENT_KEY}` +
           JSON.stringify(newBody)
       )
       .then(({ data: { score_tag } }) => {
@@ -171,7 +171,7 @@ const AddNote = () => {
             sx={{ marginY: 2 }}
           />
           <Editor
-            apiKey="hpefe3gjjlw6na2j37jyi0ciswljghb2volu0sba1b4wen02"
+            apiKey=EDITOR_KEY
             onInit={(evt, editor) => (editorRef.current = editor)}
             initialValue={body}
             init={{
