@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
 
     if (token == null) return res.sendStatus(401);
 
-    jwt.verify(token, "enigma", (err, decoded) => {
+    jwt.verify(token, SECRET_TOKEN , (err, decoded) => {
       if (err) {
         res.sendStatus(403);
       } else {
